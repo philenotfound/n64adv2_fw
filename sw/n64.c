@@ -107,9 +107,15 @@ void update_n64adv_state()
   video_input_detected = TRUE;
   if ((n64adv_state & N64ADV_INPUT_VDATA_DETECTED_GETMASK) >> N64ADV_INPUT_VDATA_DETECTED_OFFSET) {
     vin_detection_timeout = VIN_DETECTION_TIMEOUT;
-  } else {
-    if (vin_detection_timeout == 0) video_input_detected = FALSE;
-    else vin_detection_timeout--;
+  }
+  else
+  {
+    if (vin_detection_timeout == 0)
+      video_input_detected = FALSE;
+    else {
+      vin_detection_timeout--;
+      usleep(16000);
+    }
   }
   pal_pattern = ((n64adv_state & N64ADV_INPUT_PALPATTERN_GETMASK) >> N64ADV_INPUT_PALPATTERN_OFFSET);
   palmode = ((n64adv_state & N64ADV_INPUT_PALMODE_GETMASK) >> N64ADV_INPUT_PALMODE_OFFSET);
